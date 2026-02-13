@@ -65,7 +65,7 @@ def draw_info_hand(frame, points, predicted_label, proba, hand_landmarks=None):
 
 
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
