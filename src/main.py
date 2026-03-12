@@ -10,7 +10,7 @@ def main():
     mp_hands = mp.solutions.hands
     hands = mp_hands.Hands(min_detection_confidence=0.8, min_tracking_confidence=0.9)
 
-    model = joblib.load('../models/svc.pkl')
+    model = joblib.load('models/svc.pkl')
 
     cap = cv2.VideoCapture(0)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
