@@ -63,6 +63,7 @@ Il fallait donc normaliser les données. Pour ce faire, il s'agissait de trouver
 Le pré-traitement appliqué à chaque point est donc le suivant :
 
 $$p'_{k,i} = \frac{p_{k,i} - (\mu_x, \mu_y, \mu_z)}{d(p_{k,0}, p_{k,9})}$$
+
 Où $p_{k,i}$ désigne le $i$-ème point de la $k$-ème main, et $d(p_{k,0}, p_{k,9})$ la distance euclidienne entre le poignet et la base du majeur.
 
 ### Choix du modèle
