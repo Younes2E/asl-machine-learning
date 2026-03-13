@@ -3,7 +3,7 @@ Modèle de prédiction en temps réel des signes de l'American Sign Language dep
 
 ## Instructions
 
-Python 3.11 ou 3.12 recommandé
+> Python 3.11 ou 3.12 recommandé
 
 1. **Installer les dépendances :**
 
@@ -50,7 +50,7 @@ Pour chacune des images du dataset, MediaPipe a été utilisé pour projeter 21 
 ### Pré-traitement
 
 Lors de la première implémentation, le dataset ne contenait que des images d'une seule main. Le modèle était donc capable de prédire le signe sur une main gauche, mais incapable de le prédire correctement sur une main droite. 
-Avant de passer à un dataset contenant les deux mains, la solution consistait a dupliquer chaque ligne du dataset en inversant la coordonnée $x$ de chaque point, afin de simuler un effet miroir.
+Avant de passer à un dataset contenant les deux mains, la solution consistait à dupliquer chaque ligne du dataset en inversant la coordonnée $x$ de chaque point, afin de simuler un effet miroir.
 
 Lorsque l'on travaille dans un espace à trois dimensions, il faut distinguer les coordonnées locales et globales d'un objet. Ici lorsque l'on récupère les coordonnées $(x, y, z)$ d'un point, elles correspondent aux coordonnées dites absolues, soit la position de chaque point sur l'écran. 
 Dans le dataset, toutes les mains sont centrées. Le problème n'apparaît qu'en conditions réelles, avec la webcam.
@@ -58,7 +58,7 @@ On risque de classifier les signes en fonction de la position des points sur l'�
 La solution était donc de considérer comme origine le point moyen, donc $(\mu_x, \mu_y, \mu_z)$, et soustraire cette origine à chaque point.
 
 Un autre problème détecté lors de l'utilisation du modèle avec la webcam est la distance entre la main et la camera. Dans le dataset, toutes les mains sont à la même distance de la camera, alors qu'en conditions réelles l'utilisateur peut s'approcher ou s'éloigner de la camera. 
-Il fallait donc normaliser les données. Pour ce faire, il s'agissait de trouver une distance anatomiquement stable qui ne change pas en fonction des signes. La distance entre le poignet et la base du majeur est fixe et indépendante du signe réalisé par l'utilisateur. On divise donc chaque coordonnée par cette distance
+Il fallait donc normaliser les données. Pour ce faire, il s'agissait de trouver une distance anatomiquement stable qui ne change pas en fonction des signes. La distance entre le poignet et la base du majeur est fixe et indépendante du signe réalisé par l'utilisateur. On divise donc chaque coordonnée par cette distance.
 
 Le pré-traitement appliqué à chaque point est donc le suivant :
 
@@ -80,7 +80,7 @@ Les résultats sur coordonnées absolues ne sont pas représentatifs des conditi
 #### Modèle bayésien
 
 Un modèle probabiliste Gaussian Naive Bayes a été envisagé. 
-Cependant, l'hypothèse d'indépendance du Naive Bayes n'est pas satisfaite car les coordonnées des articulations d'un même doigt sont corréllées entre elles. 
+Cependant, l'hypothèse d'indépendance du Naive Bayes n'est pas satisfaite car les coordonnées des articulations d'un même doigt sont corrélées entre elles. 
 De plus, pour chaque classe, la distribution de la coordonnée $x$ présente deux pics distincts car le dataset contient des mains gauches et droites.
 Une piste envisagée était de doubler le nombre de classes (de 26 à 52) afin de prédire à la fois le signe et la direction de la main.
 Cette approche n'a pas été retenue et le modèle bayésien a été abandonné au profit du SVC.
